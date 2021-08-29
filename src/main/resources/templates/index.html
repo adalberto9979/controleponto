@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <title>Controle de Ponto</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Controle de ponto">
+        <meta name="author" content="Adalberto Nascimento">
+        
+<!--        <script type="text/javascript" src="js/jsindex.js"></script> -->
+
+        <script type="text/javascript">
+            function initXHR() {
+                if (window.XMLHttpRequest) {
+                    xhr = new XMLHttpRequest();
+                    if (xhr.overrideMimeType) {
+                        xhr.overrideMimeType('text/xml');
+                    }
+                } else if (window.ActiveXObject) {
+                    xhr = new ActiveXObject("Microsoft.XMLHttp");
+                }
+            }
+
+            function sendRequest(url, handler) {
+                initXHR();
+                xhr.onreadystatechange = handler;
+                xhr.open("GET", url, true);
+                xhr.send(null);
+            }
+            
+         function iniciar() {
+            var cNome = window.document.getElementById("nome").value;
+            var cSenha = window.document.getElementById("senha").value;
+            var data = {nome: cNome, senha: cSenha };
+            if (cNome.length > 3) {
+                var url = "http://localhost:8080/usuario/listar";
+                sendRequest(url, retornoLista);
+                
+                
+/*                
+                fetch("http://localhost:8080/usuario/gravar", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log("Success:", data[]);
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+             * 
+ */
+//                location.href='./web/lixo';
+            }
+         }
+         
+        function retornoLista() {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var retorno = JSON.parse(xhr.responseText);
+//                    var retornoTexto = xhr.responseText;
+//                    alert(retornoTexto);
+                    window.document.getElementById("nome").value = retorno[0].nome;
+                    window.document.getElementById("senha").value = retorno[0].senha;
+                    
+//                    window.document.getElementById("nome").value = retorno[0].nome;
+//                    window.document.getElementById("senha").value = retorno[0].senha;
+                }
+            }
+        }
+         
+        </script>
+
+  
+    </head>
+    <body>
+        <h1>Controle de Ponto</h1>
+        <p></p>
+        <h1>Entre com Usuário e Senha</h1>
+        <form action="/usuario/salvar" method="POST">
+            <table>
+                <tr>
+                    <th>Usuário:</th>
+                    <td><input type="text" name="nome" id="nome" autofocus required style="text-transform:uppercase;" size=30 maxlength=35> </td>
+                </tr>
+                <tr>
+                    <th>Senha:</th>
+                    <td><input type="text" name="senha" id="senha" required size=30 maxlength=15></td>
+                </tr>
+            </table>
+
+            <p></p>
+            <input type="button" value="Entrar" onclick="iniciar();">
+            <input type="submit" value="Alterar senha">
+        </form>
+    </body>
+</html>

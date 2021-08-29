@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+
+            <script type="text/javascript">
+
+                function initXHR() {
+                    if (window.XMLHttpRequest) {
+                        xhr = new XMLHttpRequest();
+                        if (xhr.overrideMimeType) {
+                            xhr.overrideMimeType('text/xml');
+                        }
+                    } else if (window.ActiveXObject) {
+                        xhr = new ActiveXObject("Microsoft.XMLHttp");
+                    }
+                }
+
+                function sendRequest(url, handler) {
+                    initXHR();
+                    xhr.onreadystatechange = handler;
+                    xhr.open("POST", url, true);
+                    xhr.send(null);
+                }
+/*
+                function logar() {
+                    var url = "http://localhost:8080/usuario/salvar?id=0";
+                    sendRequest(url, ajaxValidaLoginLogin);
+                }
+
+                function ajaxValidaLoginLogin() {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            var retorno = xhr.responseText; //JSON.parse(xhr.responseText);
+                            alert(retorno);
+                        } else {
+                            alert("Erro");
+                        }
+                    }
+                }
+
+                function salvar() {
+                    var usuario = {
+                        id: 0,
+                        nome: "Adalberto Nascimento",
+                        senha: "123456"
+                    };
+
+                    var formData = new FormData();
+                    formData.append("pessoaJson", JSON.stringify(usuario));
+
+                    fetch("http://localhost:8080/usuario/salvar", {
+                        method: 'POST',
+                        body: formData
+                    })
+                            .then(response => {
+                                if (!response.ok)
+                                    throw new Error("não foi possível completar cadastro");
+
+                                return response.text();
+                            })
+                            .then(data => alert(data));
+                }
+*/
+            </script>
+
+        <title>Facelet Title</title>
+    </head>
+    <body>
+        Hello from Facelets
+    </body>
+</html>
+
